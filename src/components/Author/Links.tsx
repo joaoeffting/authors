@@ -5,16 +5,17 @@ import InstagramLogo from "@/svgs/InstagramLogo";
 import TikTokLogo from "@/svgs/TiktokLogo";
 import TwitterLogo from "@/svgs/TwitterLogo";
 import { AuthorLinks } from "@prisma/client";
-import EditLinks from "./DeleteLink";
 import { deleteLink } from "./actions";
 import DeleteLink from "./DeleteLink";
 import Link from "next/link";
+import DefaultLink from "@/svgs/DefaultLink";
 
 interface Props {
   links: Array<AuthorLinks>;
   column?: boolean;
-  edit?: boolean;
+  showEdit?: boolean;
   handler?: string;
+  showDelete?: boolean;
 }
 
 const getLinkByType = (link: AuthorLinks) => {
@@ -39,20 +40,34 @@ const getLinkByType = (link: AuthorLinks) => {
     return <TikTokLogo />;
   }
 
-  return <span>{link.linkName}</span>;
+  return (
+    <div>
+      <p>{link.linkName}</p>
+    </div>
+  );
 };
 
-export default function Links({ links, column, edit, handler }: Props) {
+export default function Links({
+  links,
+  column,
+  showEdit,
+  showDelete,
+  handler,
+}: Props) {
   return (
     <div className="px-2">
-      <h2 className="font-bold">Links:</h2>
-      <div className={`mt-2 flex gap-2 ${column && "flex-col"}`}>
+      <div className="flex justify-between">
+        <h2 className="font-bold">Links:</h2>
+        <Link href={`${handler}/add-links`}>Edit Links</Link>
+      </div>
+
+      <div className={`mt-2 flex gap-2 ${column && "flex-col"} items-center`}>
         {links.map((link) => {
           return (
             <div key={link.id}>
               <a href={link.link}>{getLinkByType(link)}</a>
-              {edit && <DeleteLink id={link.id} deleteLink={deleteLink} />}
-              <Link href={`/${handler}/${link.id}`}>Edit</Link>
+              {showEdit && <DeleteLink id={link.id} deleteLink={deleteLink} />}
+              {showDelete && <Link href={`/${handler}/${link.id}`}>Edit</Link>}
             </div>
           );
         })}

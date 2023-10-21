@@ -45,7 +45,7 @@ export default async function Page({ params: { handler } }: Props) {
   }
   const links = author?.links;
   return (
-    <div>
+    <div className="p-2">
       <h1 className="mb-3 text-lg font-bold">Add Link</h1>
       <AddOrEditLinksForm
         authorId={author.id}
@@ -53,7 +53,13 @@ export default async function Page({ params: { handler } }: Props) {
         action={addLinks}
         buttonLabel="Add Link"
       />
-      <Links links={links} handler={author.handler} column edit />
+      <Links
+        links={links}
+        handler={author.handler}
+        column
+        showEdit
+        showDelete
+      />
     </div>
   );
 }

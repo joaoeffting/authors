@@ -43,7 +43,7 @@ export default async function EditLink({ params: { handler, link } }: Props) {
     return <div>Not found</div>;
   }
   return (
-    <div>
+    <div className="p-2">
       <h1 className="mb-3 text-lg font-bold">Add Link</h1>
       <AddOrEditLinksForm
         handler={handler}

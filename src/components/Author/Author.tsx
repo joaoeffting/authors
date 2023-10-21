@@ -15,7 +15,7 @@ export default function AuthorPage({ author }: Props) {
       <Avatar profilePicture={author.profilePicture} />
       <AboutSection name={author.name} description={author.description} />
       <Divider />
-      <Links links={author.links} />
+      <Links links={author.links} handler={author.handler} />
       <Divider />
       <Books />
     </div>
