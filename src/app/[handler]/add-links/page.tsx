@@ -15,18 +15,18 @@ async function addLinks(formData: FormData) {
   "use server";
 
   const type = formData.get("type")?.toString();
-  const link = formData.get("link")?.toString();
+  const src = formData.get("src")?.toString();
   const linkName = formData.get("linkName")?.toString();
   const authorId = formData.get("authorId")?.toString();
 
-  if (!type || !link || !authorId || !linkName) {
+  if (!type || !src || !authorId || !linkName) {
     throw Error("Missing required fields");
   }
 
   await prisma.authorLinks.create({
     data: {
       type,
-      link,
+      src,
       authorId,
       linkName,
     },

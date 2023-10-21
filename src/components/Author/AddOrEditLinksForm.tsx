@@ -42,16 +42,16 @@ export default function AddOrEditLinksForm({
         name="linkName"
         placeholder="Description"
         className="input-bordered input mb-3 w-full"
-        defaultValue={link?.linkName}
+        defaultValue={link?.linkName || ""}
       />
 
       <input
         type="text"
         required
-        name="link"
+        name="src"
         placeholder="URL"
         className="input-bordered input mb-3 w-full"
-        defaultValue={link?.link}
+        defaultValue={link?.src}
       />
       <FormSubmit className="btn-block">{buttonLabel}</FormSubmit>
     </form>

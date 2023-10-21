@@ -17,6 +17,7 @@ model Author {
   name           String
   description    String
   links          AuthorLinks[]
+  books          Book[]
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 
@@ -26,7 +27,7 @@ model Author {
 model AuthorLinks {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   type     String
-  link     String
+  src      String
   linkName String?
 
   Author   Author @relation(fields: [authorId], references: [id], onDelete: Cascade)
@@ -36,4 +37,33 @@ model AuthorLinks {
   updatedAt DateTime @updatedAt
 
   @@map("authors_links")
+}
+
+model Book {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  bookPicture String?
+  links       BookLinks[]
+
+  Author   Author @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("authors_books")
+}
+
+model BookLinks {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  type     String
+  src      String
+  linkName String?
+
+  Book   Book?   @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  bookId String? @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("authors_book_links")
 }

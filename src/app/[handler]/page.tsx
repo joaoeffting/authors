@@ -15,7 +15,7 @@ const getAuthor = cache(async (handler: string) => {
     where: {
       handler,
     },
-    include: { links: true },
+    include: { links: true, books: true },
   });
   if (!author) {
     notFound();

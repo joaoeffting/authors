@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
 
-export type AuthorWithLinks = Prisma.AuthorGetPayload<{
-  include: { links: true };
+export type AuthorWithLinksAndBooks = Prisma.AuthorGetPayload<{
+  include: { links: true; books: true };
 }>;

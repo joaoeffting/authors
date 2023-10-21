@@ -1,7 +1,6 @@
 import AddOrEditLinksForm from "@/components/Author/AddOrEditLinksForm";
 import { prisma } from "@/lib/db/prisma";
-import { revalidatePath } from "next/cache";
-import { RedirectType, redirect } from "next/navigation";
+import {  redirect } from "next/navigation";
 
 interface Props {
   params: {
@@ -16,10 +15,10 @@ async function editLinks(formData: FormData) {
   const linkId = formData.get("linkId")?.toString();
   const handler = formData.get("handler")?.toString();
   const type = formData.get("type")?.toString();
-  const link = formData.get("link")?.toString();
+  const src = formData.get("src")?.toString();
   const linkName = formData.get("linkName")?.toString();
 
-  if (!type || !link || !linkName || !linkId) {
+  if (!type || !src || !linkName || !linkId) {
     throw Error("Missing required fields");
   }
 
@@ -27,7 +26,7 @@ async function editLinks(formData: FormData) {
     where: { id: linkId },
     data: {
       type,
-      link,
+      src,
       linkName,
     },
   });

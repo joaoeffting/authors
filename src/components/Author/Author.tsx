@@ -3,10 +3,10 @@ import Divider from "../Divider";
 import AboutSection from "./AboutSection";
 import Avatar from "./Avatar";
 import Links from "./Links";
-import { AuthorWithLinks } from "@/types/Author";
+import { AuthorWithLinksAndBooks } from "@/types/Author";
 
 interface Props {
-  author: AuthorWithLinks;
+  author: AuthorWithLinksAndBooks;
 }
 
 export default function AuthorPage({ author }: Props) {
@@ -17,7 +17,7 @@ export default function AuthorPage({ author }: Props) {
       <Divider />
       <Links links={author.links} handler={author.handler} />
       <Divider />
-      <Books />
+      <Books books={author.books} />
     </div>
   );
 }

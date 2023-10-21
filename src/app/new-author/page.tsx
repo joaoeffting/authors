@@ -41,6 +41,7 @@ async function addUser(formData: FormData) {
       handler,
       profilePicture: filename,
       links: undefined,
+      books: undefined,
     },
   });
   redirect("/");
