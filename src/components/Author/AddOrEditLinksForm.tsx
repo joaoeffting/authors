@@ -4,25 +4,17 @@ import { AuthorLinks } from "@prisma/client";
 
 interface Props {
   action: (formData: FormData) => Promise<void>;
-  authorId?: string;
   link?: AuthorLinks;
   buttonLabel: string;
-  handler?: string;
 }
 
 export default function AddOrEditLinksForm({
   action,
-  authorId,
   link,
   buttonLabel,
-  handler,
 }: Props) {
   return (
     <form action={action}>
-      <input type="hidden" name="authorId" value={authorId} />
-      <input type="hidden" name="linkId" value={link?.id} />
-      <input type="hidden" name="handler" value={handler} />
-
       <select
         className="select-bordered select mb-3 w-full"
         name="type"

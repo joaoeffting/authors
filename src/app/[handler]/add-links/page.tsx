@@ -11,13 +11,12 @@ interface Props {
   };
 }
 
-async function addLinks(formData: FormData) {
+async function addLinks(authorId: string, formData: FormData) {
   "use server";
 
   const type = formData.get("type")?.toString();
   const src = formData.get("src")?.toString();
   const linkName = formData.get("linkName")?.toString();
-  const authorId = formData.get("authorId")?.toString();
 
   if (!type || !src || !authorId || !linkName) {
     throw Error("Missing required fields");
@@ -44,15 +43,12 @@ export default async function Page({ params: { handler } }: Props) {
     return <div>Not found</div>;
   }
   const links = author?.links;
+  const authorId = author.id;
+  const addLinksWithParams = addLinks.bind(null, authorId);
   return (
     <div className="p-2">
       <h1 className="mb-3 text-lg font-bold">Add Link</h1>
-      <AddOrEditLinksForm
-        authorId={author.id}
-        handler={author.handler}
-        action={addLinks}
-        buttonLabel="Add Link"
-      />
+      <AddOrEditLinksForm action={addLinksWithParams} buttonLabel="Add Link" />
       <Links
         links={links}
         handler={author.handler}

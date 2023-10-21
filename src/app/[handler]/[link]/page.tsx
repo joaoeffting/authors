@@ -1,6 +1,6 @@
 import AddOrEditLinksForm from "@/components/Author/AddOrEditLinksForm";
 import { prisma } from "@/lib/db/prisma";
-import {  redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 interface Props {
   params: {
@@ -9,11 +9,9 @@ interface Props {
   };
 }
 
-async function editLinks(formData: FormData) {
+async function editLinks(handler: string, linkId: string, formData: FormData) {
   "use server";
 
-  const linkId = formData.get("linkId")?.toString();
-  const handler = formData.get("handler")?.toString();
   const type = formData.get("type")?.toString();
   const src = formData.get("src")?.toString();
   const linkName = formData.get("linkName")?.toString();
@@ -41,12 +39,13 @@ export default async function EditLink({ params: { handler, link } }: Props) {
   if (!linkToEdit) {
     return <div>Not found</div>;
   }
+  const linkId = link;
+  const editLinksWithHandler = editLinks.bind(null, handler, linkId);
   return (
     <div className="p-2">
       <h1 className="mb-3 text-lg font-bold">Add Link</h1>
       <AddOrEditLinksForm
-        handler={handler}
-        action={editLinks}
+        action={editLinksWithHandler}
         link={linkToEdit}
         buttonLabel="Update Link"
       />
