@@ -61,11 +61,15 @@ export default function Links({
         <Link href={`${handler}/add-links`}>Edit Links</Link>
       </div>
 
-      <div className={`mt-2 flex gap-2 ${column && "flex-col"} items-center`}>
+      <div
+        className={`mt-2 flex gap-2 ${column ? "flex-col" : "items-center"} `}
+      >
         {links.map((link) => {
           return (
             <div key={link.id}>
-              <a href={link.link}>{getLinkByType(link)}</a>
+              <a href={link.link} target="_blank">
+                {getLinkByType(link)}
+              </a>
               {showEdit && <DeleteLink id={link.id} deleteLink={deleteLink} />}
               {showDelete && <Link href={`/${handler}/${link.id}`}>Edit</Link>}
             </div>
